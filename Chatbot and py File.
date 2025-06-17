@@ -1,0 +1,107 @@
+# Step 2: Predefined Crypto Data
+
+crypto_db = {
+    "Bitcoin": {
+        "price_trend": "rising",
+        "market_cap": "high",
+        "energy_use": "high",
+        "sustainability_score": 3/10
+    },
+    "Ethereum": {
+        "price_trend": "stable",
+        "market_cap": "high",
+        "energy_use": "medium",
+        "sustainability_score": 6/10
+    },
+    "Cardano": {
+        "price_trend": "rising",
+        "market_cap": "medium",
+        "energy_use": "low",
+        "sustainability_score": 8/10
+    }
+}
+
+
+# Step 3: Chatbot Logic
+
+# Simulated user input
+user_query = input("Ask me about crypto: ").lower()
+
+if "sustainable" in user_query:
+    # Find coin with the highest sustainability score
+    recommend = max(crypto_db, key=lambda x: crypto_db[x]["sustainability_score"])
+    print(f"🌱 Invest in {recommend}! It’s eco-friendly with a score of {crypto_db[recommend]['sustainability_score'] * 10}/10.")
+
+elif "trending" in user_query or "up" in user_query or "rising" in user_query:
+    # Find coins with a rising price trend
+    trending_up = [coin for coin in crypto_db if crypto_db[coin]["price_trend"] == "rising"]
+    if trending_up:
+        print("📈 These coins are trending up: " + ", ".join(trending_up))
+    else:
+        print("No coins are trending up right now.")
+
+elif "energy" in user_query or "green" in user_query:
+    # Find coin(s) with low energy use
+    low_energy = [coin for coin in crypto_db if crypto_db[coin]["energy_use"] == "low"]
+    if low_energy:
+        print("⚡ These coins use low energy: " + ", ".join(low_energy))
+    else:
+        print("No low-energy coins found.")
+
+elif "best" in user_query or "recommend" in user_query:
+    # Simple heuristic: high sustainability and rising trend
+    recommend = [coin for coin in crypto_db if crypto_db[coin]["sustainability_score"] > 0.5 and crypto_db[coin]["price_trend"] == "rising"]
+    if recommend:
+        print(f"🤖 Based on growth & sustainability, consider: {', '.join(recommend)}")
+    else:
+        print("No strong recommendations at the moment.")
+
+else:
+    print("🤔 Sorry, I didn't understand that. Try asking about sustainability, price trends, or energy use.")
+
+
+    # Step 4: Chatbot Logic with Advice Rules
+
+user_query = input("Ask me about crypto: ").lower()
+
+if "sustainable" in user_query or "eco" in user_query or "green" in user_query:
+    sustainable_coins = [
+        coin for coin in crypto_db
+        if crypto_db[coin]["energy_use"] == "low" and crypto_db[coin]["sustainability_score"] > 0.7
+    ]
+    if sustainable_coins:
+        print("🌿 Top sustainable choices:")
+        for coin in sustainable_coins:
+            print(f"- {coin} (Score: {crypto_db[coin]['sustainability_score'] * 10}/10)")
+    else:
+        print("No coins currently meet strong sustainability standards.")
+
+elif "profitable" in user_query or "best" in user_query or "profit" in user_query:
+    profitable_coins = [
+        coin for coin in crypto_db
+        if crypto_db[coin]["price_trend"] == "rising" and crypto_db[coin]["market_cap"] == "high"
+    ]
+    if profitable_coins:
+        print("💰 Top profitable choices:")
+        for coin in profitable_coins:
+            print(f"- {coin} (Trending: {crypto_db[coin]['price_trend']}, Market Cap: {crypto_db[coin]['market_cap']})")
+    else:
+        print("No highly profitable coins found at the moment.")
+
+elif "trending" in user_query or "up" in user_query or "rising" in user_query:
+    trending_up = [coin for coin in crypto_db if crypto_db[coin]["price_trend"] == "rising"]
+    if trending_up:
+        print("📈 These coins are trending up: " + ", ".join(trending_up))
+    else:
+        print("No coins are trending up right now.")
+
+elif "energy" in user_query:
+    low_energy = [coin for coin in crypto_db if crypto_db[coin]["energy_use"] == "low"]
+    if low_energy:
+        print("⚡ These coins use low energy: " + ", ".join(low_energy))
+    else:
+        print("No low-energy coins found.")
+
+else:
+    print("🤔 Sorry, I didn't understand that. Try asking about profitability, sustainability, or trending coins.")
+
